@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NETDraw.Pages.WorkPage" Title="NETD"
+             xmlns:ss="clr-namespace:SkiaSharp;assembly=SkiaSharp"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms" 
+             xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms">
+
+ 
+    
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition  Height="0.2*"/>
+            <RowDefinition  Height="2*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.3*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <!--#region Панель инструментов Instruments Panel-->
+        
+            <!--#region Палитра HSL Pallete-->
+
+                    <StackLayout Orientation="Vertical">
+
+                        
+                        
+                        
+                        <Label Text="HSL"/>
+                        <Label Text="Saturation"/>
+                        <Label Text="Lightness"/>
+                        
+
+                    </StackLayout>
+                
+        
+        
+        
+                    <StackLayout Orientation="Vertical" Grid.Column="1">
+
+
+                    <Slider x:Name="hueSlider" StyleId="HueSlider"
+                        Maximum="360"
+                        Margin="20, 0"
+                        ValueChanged="OnSliderValueChanged" />
+
+
+                    <Slider x:Name="saturationSlider" 
+                        Maximum="100"
+                        Margin="20, 0"
+                        ValueChanged="OnSliderValueChanged" />
+
+
+                    <Slider x:Name="lightnessSlider"
+                        Maximum="100"
+                        Margin="20, 0"
+                        ValueChanged="OnSliderValueChanged" />
+
+
+
+                </StackLayout>
+
+                    
+
+
+
+
+
+
+        <Grid VerticalOptions="FillAndExpand" Grid.Column="2" x:Name="WG">
+                                
+                    <skia:SKCanvasView x:Name="ColorPreView"
+                    PaintSurface="OnHslCanvasViewPaintSurface" />
+
+                </Grid>
+
+        <!--#endregion-->
+
+        
+        <!--#region Кисти BrushSelector-->
+        <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+
+            <Picker x:Name="BrushPicker" Title="Brush" TabIndex="0" SelectedIndex="0" SelectedIndexChanged="BrushPicker_SelectedIndexChanged" ItemsSource="{Binding Path=Brushes}"/>
+
+
+
+        </StackLayout>
+
+        
+
+
+        <!--#endregion-->
+
+        <!--#endregion-->
+        
+        <!--#region Холст Canvas-->
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" >
+
+            <skia:SKCanvasView x:Name="Canvas" PaintSurface="OnCanvasViewPaintSurface">
+
+            </skia:SKCanvasView>
+
+            <Grid.Effects>
+                <tt:TouchEffect Capture="True"  TouchAction="TouchEffect_TouchAction"/>
+            </Grid.Effects>
+
+        </Grid>
+
+
+
+
+
+            <!--#endregion-->
+
+
+
+    </Grid>
+</ContentPage>
